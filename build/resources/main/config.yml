@@ -1,0 +1,2 @@
+# PLAYER AUCTION
+sell-msg: '<bold><gold><player></gold><gray> sta vendendo un oggetto: <bold><gold><item> x<amount></gold><gray> a <price>'
