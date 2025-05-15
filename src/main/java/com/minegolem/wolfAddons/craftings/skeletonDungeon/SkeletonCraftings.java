@@ -13,9 +13,9 @@ public class SkeletonCraftings {
 
     private static final WolfAddons INSTANCE = WolfAddons.INSTANCE;
 
-    private static final NamespacedKey rottameOsseoNSK = new NamespacedKey(INSTANCE, "rottame_osseo");
-    private static final NamespacedKey lingottoOsseoNSK = new NamespacedKey(INSTANCE, "lingotto_osseo");
-    private static final NamespacedKey cristalloOsseoNSK = new NamespacedKey(INSTANCE, "cristallo_osseo");
+    private static final NamespacedKey rottameOsseoNSK = new NamespacedKey(INSTANCE, "rottame_osseoCRF");
+    private static final NamespacedKey lingottoOsseoNSK = new NamespacedKey(INSTANCE, "lingotto_osseoCRF");
+    private static final NamespacedKey cristalloOsseoNSK = new NamespacedKey(INSTANCE, "cristallo_osseoCRF");
 
     private static final ItemStack cristalloOsseoIS = OraxenItems.getItemById("cristallo_osseo").build();
 

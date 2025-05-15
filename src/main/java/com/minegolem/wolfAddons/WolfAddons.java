@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Getter
-public final class WolfAddons extends JavaPlugin implements Listener {
+public final class WolfAddons extends JavaPlugin {
 
     public static WolfAddons INSTANCE = null;
 
@@ -69,7 +69,8 @@ public final class WolfAddons extends JavaPlugin implements Listener {
         List<SmithingTransformRecipe> weaponsSmithingRecipes = SkeletonCraftings.getWeaponsSmithingRecipes();
         List<ShapedRecipe> itemsShapedRecipes = SkeletonCraftings.getItemsShapedRecipes();
 
-        getServer().getPluginManager().registerEvents(this, this);
+        System.out.println(armorSmithingRecipes);
+        System.out.println(itemsShapedRecipes);
 
         SkeletonCraftings.getArmorSmithingRecipes().forEach(recipe -> {
             Bukkit.addRecipe(recipe);
@@ -175,23 +176,5 @@ public final class WolfAddons extends JavaPlugin implements Listener {
         this.econ = rsp.getProvider();
 
         return true;
-    }
-
-    @EventHandler
-    public void playerResourceJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-
-        Bukkit.getScheduler().runTaskLater(this, () -> {
-            ViaAPI viaAPi = Via.getAPI();
-            int clientVersion = viaAPi.getPlayerVersion(player);
-
-            System.out.println(clientVersion);
-
-            if (clientVersion > 765) {
-                player.setResourcePack("https://www.quartzmc.it/pack/pack.zip", "BDFBBDA76B65EBCD9A7E40209F7F8DFEF6857BF2");
-                System.out.println("versione maggiore");
-            }
-        }, 2 * 20L);
-
     }
 }

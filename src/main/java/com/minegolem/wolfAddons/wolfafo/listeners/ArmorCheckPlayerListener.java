@@ -6,9 +6,12 @@ import com.jeff_media.morepersistentdatatypes.DataType;
 import com.minegolem.wolfAddons.WolfAddons;
 import com.minegolem.wolfAddons.utils.ColorUtils;
 import io.th0rgal.oraxen.utils.armorequipevent.ArmorEquipEvent;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 
@@ -30,10 +33,35 @@ public class ArmorCheckPlayerListener implements Listener {
 
         UUID uuid = pdc.get(WolfAddons.INSTANCE.getPLAYER_DATA_KEY(), DataType.UUID);
 
-        if (!playerUUID.equals(uuid) && pdc.has(WolfAddons.INSTANCE.getAFO_DATA_KEY())) {
+        if (uuid != null && !playerUUID.equals(uuid) && pdc.has(WolfAddons.INSTANCE.getAFO_DATA_KEY())) {
             event.setCancelled(true);
 
             player.sendMessage(ColorUtils.colorize("<bold><red>ᴀᴛᴛᴇɴᴢɪᴏɴᴇ</red></bold> <dark_gray>|</dark_gray> <gray>Non puoi equipaggiare questa armatura!</gray>"));
+
+        }
+    }
+
+    @EventHandler
+    public void ArmorChangeEvent(PlayerInteractEvent event) {
+        if (event.getItem() == null) return;
+
+        if (!event.getAction().isRightClick()) return;
+
+        Player player = event.getPlayer();
+        UUID playerUUID = player.getUniqueId();
+
+        ItemStack item = event.getItem();
+
+        if (item.getItemMeta() == null) return;
+        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+
+        UUID uuid = pdc.get(WolfAddons.INSTANCE.getPLAYER_DATA_KEY(), DataType.UUID);
+
+        if (uuid != null && !playerUUID.equals(uuid) && pdc.has(WolfAddons.INSTANCE.getAFO_DATA_KEY())) {
+            event.setCancelled(true);
+
+            player.sendMessage(ColorUtils.colorize("<bold><red>ᴀᴛᴛᴇɴᴢɪᴏɴᴇ</red></bold> <dark_gray>|</dark_gray> <gray>Non puoi equipaggiare questa armatura!</gray>"));
+
         }
     }
 }

@@ -10,11 +10,18 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.inventory.PrepareSmithingEvent;
 import org.bukkit.event.inventory.SmithItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.event.Event.Result;
+import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.ShapelessRecipe;
 import org.checkerframework.checker.units.qual.N;
+
+import java.util.Arrays;
 
 @RequiredArgsConstructor
 @Getter
@@ -94,6 +101,20 @@ public class SmithingRecipes implements Listener {
             case NETHERITE_LEGGINGS -> event.getInventory().setResult(boneLeggingsIS);
             case NETHERITE_BOOTS -> event.getInventory().setResult(boneBootsIS);
             default -> event.getInventory().setResult(new ItemStack(Material.AIR));
+        }
+    }
+    @EventHandler
+    public void onCraftEvent(CraftItemEvent event) {
+        // Check if your recipe is being cancelled
+        if (event.isCancelled()) {
+            // Log which plugin is cancelling it
+            System.out.println("Craft event cancelled by: " + Arrays.toString(event.getHandlers().getRegisteredListeners()));
+        }
+
+        // Check the recipe being crafted
+        Recipe recipe = event.getRecipe();
+        if (recipe instanceof ShapedRecipe || recipe instanceof ShapelessRecipe) {
+            System.out.println("Crafting attempt: " + recipe.getResult().getItemMeta().getCustomModelData());
         }
     }
 }
