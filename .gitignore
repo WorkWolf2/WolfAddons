@@ -1,0 +1,27 @@
+# Ignora directory di build e cache di Gradle
+/build/
+/.gradle/
+
+# Ignora configurazioni IDE (IntelliJ IDEA)
+.idea/
+*.iml
+
+# File temporanei comuni
+*.log
+*.tmp
+*.swp
+*.bak
+.DS_Store
+
+# Output di test
+/test-results/
+/out/
+
+# Ignora le configurazioni locali
+*.class
+*.jar
+*.war
+*.ear
+
+# Escludi file generati da OS
+Thumbs.db
