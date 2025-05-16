@@ -69,9 +69,6 @@ public final class WolfAddons extends JavaPlugin {
         List<SmithingTransformRecipe> weaponsSmithingRecipes = SkeletonCraftings.getWeaponsSmithingRecipes();
         List<ShapedRecipe> itemsShapedRecipes = SkeletonCraftings.getItemsShapedRecipes();
 
-        System.out.println(armorSmithingRecipes);
-        System.out.println(itemsShapedRecipes);
-
         SkeletonCraftings.getArmorSmithingRecipes().forEach(recipe -> {
             Bukkit.addRecipe(recipe);
             Logger.log(Logger.LogLevel.INFO, "Registered recipe: " + recipe.getKey());

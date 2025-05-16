@@ -4,11 +4,13 @@ import com.jeff_media.morepersistentdatatypes.DataType;
 import com.minegolem.wolfAddons.WolfAddons;
 import io.th0rgal.oraxen.OraxenPlugin;
 import io.th0rgal.oraxen.api.OraxenItems;
+import io.th0rgal.oraxen.items.ItemBuilder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
@@ -19,6 +21,7 @@ import org.bukkit.event.Event.Result;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.checkerframework.checker.units.qual.N;
 
 import java.util.Arrays;
@@ -103,18 +106,24 @@ public class SmithingRecipes implements Listener {
             default -> event.getInventory().setResult(new ItemStack(Material.AIR));
         }
     }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPreCraftEvent(PrepareItemCraftEvent event) {
+        if (!(event.getRecipe() instanceof ShapedRecipe recipe)) return;
+        if (!recipe.getKey().getNamespace().equals("wolfaddons")) return;
+
+        ItemStack result = recipe.getResult();
+
+        event.getInventory().setResult(result);
+    }
+
     @EventHandler
     public void onCraftEvent(CraftItemEvent event) {
-        // Check if your recipe is being cancelled
-        if (event.isCancelled()) {
-            // Log which plugin is cancelling it
-            System.out.println("Craft event cancelled by: " + Arrays.toString(event.getHandlers().getRegisteredListeners()));
-        }
+        if (!(event.getRecipe() instanceof ShapedRecipe recipe)) return;
+        if (!recipe.getKey().getNamespace().equals("wolfaddons")) return;
 
-        // Check the recipe being crafted
-        Recipe recipe = event.getRecipe();
-        if (recipe instanceof ShapedRecipe || recipe instanceof ShapelessRecipe) {
-            System.out.println("Crafting attempt: " + recipe.getResult().getItemMeta().getCustomModelData());
-        }
+        ItemStack result = event.getRecipe().getResult();
+
+        event.getInventory().setResult(result);
     }
 }

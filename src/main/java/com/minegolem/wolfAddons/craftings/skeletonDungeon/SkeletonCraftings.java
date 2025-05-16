@@ -76,8 +76,8 @@ public class SkeletonCraftings {
                 "FFF"
         );
 
-        rottameOsseoRecipe.setIngredient('F', frammentoOsseoIS);
-        rottameOsseoRecipe.setIngredient('B', Material.IRON_BLOCK);
+        rottameOsseoRecipe.setIngredient('F', new RecipeChoice.ExactChoice(frammentoOsseoIS));
+        rottameOsseoRecipe.setIngredient('B', new RecipeChoice.MaterialChoice(Material.IRON_BLOCK));
 
         recipes.add(rottameOsseoRecipe);
 
